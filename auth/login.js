@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../model/userModel");
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+const JWT_SECRET = process.env.JWT_SECRET || "some_unknown_keys_and_code";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
 
 // Login Controller Function
@@ -36,15 +36,14 @@ const loginController = async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN } // Options
     );
 
+    // Remove sensitive information (like password) from the response
+    const { password: hashedPassword, ...userDetails } = user.toObject();
+
     // Send success response
     res.status(200).json({
       message: "Login successful",
       token,
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.firstName, // Include additional user details if needed
-      },
+      userDetails,
     });
   } catch (error) {
     console.error("Login error:", error);

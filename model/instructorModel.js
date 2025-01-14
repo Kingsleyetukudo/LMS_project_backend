@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const instructorSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -30,6 +30,26 @@ const userSchema = new mongoose.Schema(
         message: (props) => `${props.value} is not a valid email!`,
       },
     },
+
+    bio: {
+      type: String,
+      // required: true,
+    },
+
+    phone: {
+      type: Number,
+      // required: true,
+    },
+
+    address: {
+      type: String,
+    },
+
+    photo: {
+      type: String,
+      // required: true,
+    },
+
     password: {
       type: String,
       required: true,
@@ -39,5 +59,5 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("Users", userSchema);
-module.exports = User;
+const Instructor = mongoose.model("Instructors", instructorSchema);
+module.exports = Instructor;

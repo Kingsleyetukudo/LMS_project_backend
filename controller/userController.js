@@ -17,7 +17,9 @@ const createUser = async (req, res) => {
 
     userData.password = await bcrypt.hash(userData.password, salt);
     const savedUser = await userData.save();
-    res.status(200).json(savedUser);
+
+    const { password, ...userDetails } = savedUser.toObject();
+    res.status(200).json(userDetails);
   } catch (error) {
     res.status(500).json({ error: "Internal Server error" });
   }
@@ -70,9 +72,40 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Compare the provided password with the stored hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid Password." });
+    }
+
+    // Remove sensitive information (like password) from the response
+    const { password: hashedPassword, ...userWithoutPassword } =
+      user.toObject();
+
+    // Successful login
+    res.status(200).json({
+      message: "Login successful",
+      user: userWithoutPassword,
+    });
+  } catch (error) {
+    res.status(500).json({ error: " Opps No user found!" });
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   updateUser,
   deleteUser,
+  loginUser,
 };
