@@ -22,6 +22,7 @@ app.use(cors(corsOptions));
 
 const user = require("./routes/userRoute");
 const instructor = require("./routes/instructorRoute");
+const cloudinary = require("./controller/cloudinary_function");
 
 app.use(bodyParser.json());
 dotenv.config();
@@ -45,7 +46,7 @@ mongoose
 
 app.use("/api/user", user);
 app.use("/api/instructor", instructor);
-
+app.use("/api", cloudinary);
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
