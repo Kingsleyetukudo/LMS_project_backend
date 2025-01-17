@@ -5,7 +5,7 @@ const {
   updateUser,
   deleteUser,
   // loginUser,
-} = require("../controller/userController");
+} = require("../controllers/userController");
 
 const { loginController } = require("../auth/login");
 

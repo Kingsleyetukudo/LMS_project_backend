@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const Instructor = require("../model/instructorModel");
+const Instructor = require("../models/instructorModel");
 
 const createInstructor = async (req, res) => {
   try {

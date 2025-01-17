@@ -7,7 +7,7 @@ const {
   getAllInstructors,
   updateInstructor,
   deleteInstructor,
-} = require("../controller/instructorController");
+} = require("../controllers/instructorController");
 
 route.post("/createInstructor", createInstructor);
 route.get("/getAllInstructors", getAllInstructors);

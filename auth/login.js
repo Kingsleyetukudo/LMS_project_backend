@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../model/userModel");
+const User = require("../models/userModel");
 
 const JWT_SECRET = process.env.JWT_SECRET || "some_unknown_keys_and_code";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
